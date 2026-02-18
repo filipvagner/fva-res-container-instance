@@ -97,21 +97,15 @@ variable "use_private_networking" {
 }
 
 variable "environment_variables" {
-  type = set(object({
-    name  = string
-    value = string
-  }))
-  default     = []
+  type        = map(string)
+  default     = {}
   description = "List of additional environment variables to pass to the container."
 }
 
 variable "sensitive_environment_variables" {
-  type = set(object({
-    name  = string
-    value = string
-  }))
+  type        = map(string)
   sensitive   = true
-  default     = []
+  default     = {}
   description = "List of additional sensitive environment variables to pass to the container."
 }
 
