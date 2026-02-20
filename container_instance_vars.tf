@@ -33,6 +33,7 @@ variable "container_registry_login_server" {
 variable "user_assigned_managed_identity_id" {
   type        = string
   description = "ID of the user-assigned managed identity"
+  default     = null
 }
 
 variable "user_assigned_managed_identity_principal_id" {

@@ -23,9 +23,13 @@ resource "azurerm_container_group" "this" {
       protocol = "TCP"
     }
   }
-  identity {
-    type         = "UserAssigned"
-    identity_ids = [var.user_assigned_managed_identity_id]
+  dynamic "identity" {
+    for_each = var.user_assigned_managed_identity_id != null ? ["custom"] : []
+
+    content {
+      type         = "UserAssigned"
+      identity_ids = [var.user_assigned_managed_identity_id]
+    }
   }
   dynamic "image_registry_credential" {
     for_each = var.container_registry_username != null ? ["custom"] : []
