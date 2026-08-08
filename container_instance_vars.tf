@@ -85,14 +85,14 @@ variable "container_registry_username" {
   description = "Username of the container registry"
 }
 
-variable "subnet_id" {
-  type        = string
-  default     = null
-  description = "ID of the subnet"
+variable "subnet_ids" {
+  type        = list(string)
+  default     = []
+  description = "IDs of the subnets"
 
   validation {
-    condition     = var.ip_address_type != "Private" || (var.subnet_id != null && trimspace(var.subnet_id) != "")
-    error_message = "subnet_id cannot be null or empty when ip_address_type is Private."
+    condition     = var.ip_address_type != "Private" || (length(var.subnet_ids) > 0)
+    error_message = "subnet_ids cannot be empty when ip_address_type is Private."
   }
 }
 
@@ -105,6 +105,12 @@ variable "ip_address_type" {
     condition     = contains(["Private", "None", "Public"], var.ip_address_type)
     error_message = "ip_address_type must be one of: Private, None, Public."
   }
+}
+
+variable "dns_name_label" {
+  type        = string
+  default     = null
+  description = "DNS name label for the container instance. Required if ip_address_type is Public."
 }
 
 variable "environment_variables" {

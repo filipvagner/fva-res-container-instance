@@ -2,9 +2,10 @@ resource "azurerm_container_group" "this" {
   location            = var.location
   name                = var.name
   resource_group_name = var.resource_group_name
+  dns_name_label      = var.dns_name_label
   os_type             = "Linux"
   ip_address_type     = var.ip_address_type
-  subnet_ids          = try(var.subnet_id, [])
+  subnet_ids          = try(var.subnet_ids, [])
   tags                = var.tags
   zones               = var.availability_zones
 
