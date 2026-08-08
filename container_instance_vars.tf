@@ -89,12 +89,22 @@ variable "subnet_id" {
   type        = string
   default     = null
   description = "ID of the subnet"
+
+  validation {
+    condition     = var.ip_address_type != "Private" || (var.subnet_id != null && trimspace(var.subnet_id) != "")
+    error_message = "subnet_id cannot be null or empty when ip_address_type is Private."
+  }
 }
 
-variable "use_private_networking" {
-  type        = bool
-  default     = true
-  description = "Flag to indicate whether to use private networking"
+variable "ip_address_type" {
+  type        = string
+  default     = "None"
+  description = "IP address type for the container instance. Allowed values: Private, None, Public"
+
+  validation {
+    condition     = contains(["Private", "None", "Public"], var.ip_address_type)
+    error_message = "ip_address_type must be one of: Private, None, Public."
+  }
 }
 
 variable "environment_variables" {

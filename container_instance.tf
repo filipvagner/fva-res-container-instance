@@ -3,8 +3,8 @@ resource "azurerm_container_group" "this" {
   name                = var.name
   resource_group_name = var.resource_group_name
   os_type             = "Linux"
-  ip_address_type     = var.use_private_networking ? "Private" : "None"
-  subnet_ids          = var.use_private_networking ? [var.subnet_id] : []
+  ip_address_type     = var.ip_address_type
+  subnet_ids          = try(var.subnet_id, [])
   tags                = var.tags
   zones               = var.availability_zones
 
