@@ -87,7 +87,7 @@ variable "container_registry_username" {
 
 variable "subnet_ids" {
   type        = list(string)
-  default     = []
+  default     = null
   description = "IDs of the subnets"
 
   validation {
