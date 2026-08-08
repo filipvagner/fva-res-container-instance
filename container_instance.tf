@@ -20,8 +20,8 @@ resource "azurerm_container_group" "this" {
     secure_environment_variables = var.sensitive_environment_variables
 
     ports {
-      port     = 80
-      protocol = "TCP"
+      port     = var.port
+      protocol = var.protocol
     }
   }
   dynamic "identity" {

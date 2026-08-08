@@ -96,6 +96,23 @@ variable "subnet_ids" {
   }
 }
 
+variable "port" {
+  type = number
+  default = 80
+  description = "Port number for the container"
+}
+
+variable "protocol" {
+  type        = string
+  default     = "TCP"
+  description = "Protocol for the container port. Allowed values: TCP, UDP"
+
+  validation {
+    condition     = contains(["TCP", "UDP"], var.protocol)
+    error_message = "protocol must be one of: TCP, UDP."
+  }
+}
+
 variable "ip_address_type" {
   type        = string
   default     = "None"
